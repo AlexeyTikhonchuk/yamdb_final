@@ -13,6 +13,36 @@ https://158.160.15.197/
 
 Пользователи могут оставлять комментарии к отзывам.
 
+## Запуск проекта на локальной машине:
+Клонировать репозиторий:
+`https://github.com/alexeytikhonchuk/yamdb_final.git`
+В директории infra файл .env заполнить своими данными:
+```
+DB_ENGINE=django.db.backends.postgresql
+DB_NAME=postgres
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+DB_HOST=db
+DB_PORT=5432
+SECRET_KEY='секретный ключ Django'
+```
+Создать и запустить контейнеры Docker, выполнить команду в терминале из папки infra:
+```
+docker-compose up -d
+```
+После успешной сборки выполнить миграции:
+```
+docker-compose exec backend python manage.py migrate
+```
+Создать суперпользователя:
+```
+docker-compose exec backend python manage.py createsuperuser
+```
+Собрать статику:
+```
+docker-compose exec backend python manage.py collectstatic --noinput
+```
+
 ### Технологии
 - python
 - django
